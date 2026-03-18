@@ -1,58 +1,40 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Smooth scrolling for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
+/**
+ * IRON PUMP - Professional Fitness Solutions
+ * Minimalist Script
+ */
 
-    // Simple Form Submission (Mock)
+document.addEventListener('DOMContentLoaded', () => {
+    /* --- CONTACT FORM HANDLER --- */
     const contactForm = document.getElementById('contactForm');
-    const feedback = document.getElementById('formFeedback');
+    const formFeedback = document.getElementById('formFeedback');
 
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Show loading state
-            const btn = contactForm.querySelector('button');
-            const originalText = btn.textContent;
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-
-            // Simulate API call
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            
+            // UI Feedback
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'SENDING...';
+            
+            // Simulate API Call
             setTimeout(() => {
-                btn.textContent = originalText;
-                btn.disabled = false;
-                
-                feedback.style.color = '#00ff88';
-                feedback.textContent = 'Thanks! We will get back to you soon.';
+                submitBtn.textContent = 'INQUIRY SENT';
+                formFeedback.textContent = 'Thank you for your interest. Our administration will contact you within 24 hours.';
+                formFeedback.style.color = '#fff';
                 
                 contactForm.reset();
-
-                // Clear feedback after 5 seconds
+                
+                // Reset button state
                 setTimeout(() => {
-                    feedback.textContent = '';
-                }, 5000);
-            }, 1500);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    formFeedback.textContent = '';
+                }, 4000);
+            }, 1000);
         });
     }
-
-    // Header Scroll Effect
-    const header = document.querySelector('.glass-nav');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.style.padding = '10px 30px';
-            header.style.backgroundColor = 'rgba(10, 10, 12, 0.95)';
-        } else {
-            header.style.padding = '15px 40px';
-            header.style.backgroundColor = 'rgba(20, 20, 24, 0.8)';
-        }
-    });
 });
+
